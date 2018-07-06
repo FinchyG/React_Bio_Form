@@ -20,7 +20,7 @@ h1 {
   padding-top: 0.5em;
 }
 
-div {
+.inner_div {
   padding: 0em 4em;
   margin-bottom: 1em;
 }
@@ -45,6 +45,10 @@ button {
 .warning {
   visibility: hidden;
   color: rgb(229, 29, 29);
+}
+
+#para_div {
+  height: 5em;
 }
 
 @font-face {
