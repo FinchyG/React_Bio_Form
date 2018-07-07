@@ -10,39 +10,58 @@ export default class Bio_Form extends React.Component {
 
         this.state = {
             first_name: "",
-            first_name_valid: "false",
+            first_name_valid: false,
+            last_name: "",
+            last_name_valid: false
         }
 
         this.process_data = this.process_data.bind(this);
         this.get_first_name = this.get_first_name.bind(this);
+        this.get_last_name = this.get_last_name.bind(this);
 
     }
 
     process_data() {
 
         this.get_first_name();
+        this.get_last_name();
 
     }
 
     get_first_name() {
 
         const user_input_first_name = document.getElementById("FName").value.trim();
-        let first_name_valid = this.state.first_name_valid;
-    
+        
         if(user_input_first_name === ""){
             document.getElementById("FName_warn").style.visibility = "visible";
-            first_name_valid = "false";
-            this.setState((first_name_valid) => ({first_name_valid: first_name_valid}));
+            this.setState((first_name_valid) => ({first_name_valid: false}));
         } else {
             document.getElementById("FName_warn").style.visibility = "hidden";
-            first_name_valid = "true";
-            this.setState((first_name_valid) => ({first_name_valid: "true"}));
+            this.setState((first_name_valid) => ({first_name_valid: true}));
             const caps_first_letter = user_input_first_name.substring(0,1).toUpperCase();
             const rest_of_name = user_input_first_name.substring(1).toLowerCase();
 
-            console.log(first_name_valid);
-            
             this.setState((first_name) => ({first_name: caps_first_letter + rest_of_name}));
+        
+        }
+        
+    }
+
+    get_last_name() {
+
+        const user_input_last_name = document.getElementById("LName").value.trim();
+        
+        if(user_input_last_name === ""){
+            document.getElementById("LName_warn").style.visibility = "visible";
+            this.setState((last_name_valid) => ({last_name_valid: false}));
+        } else {
+            document.getElementById("LName_warn").style.visibility = "hidden";
+            this.setState((last_name_valid) => ({last_name_valid: true}));
+            const caps_first_letter = user_input_last_name.substring(0,1).toUpperCase();
+            const rest_of_name = user_input_last_name.substring(1).toLowerCase();
+
+            this.setState((last_name) => ({last_name: caps_first_letter + rest_of_name}));
+        
         }
         
     }
@@ -57,12 +76,18 @@ export default class Bio_Form extends React.Component {
                     <input type="text" id="FName" /><span className="warning" id="FName_warn">*Enter your first name*</span>
                 </div>
 
+                <div className="inner_div">
+                    <label>Last Name: </label>
+                    <input type="text" id="LName" /><span className="warning" id="LName_warn">*Enter your last name*</span>
+                </div>
+
                 <div>
                 <Submit_Button onClick={this.process_data} />
                 </div>
 
                 <div  className="inner_div" id="para_div">
-                    <Bio_Para first_name={this.state.first_name} first_name_valid={this.state.first_name_valid} />
+                    <Bio_Para first_name={this.state.first_name} first_name_valid={this.state.first_name_valid} 
+                              last_name={this.state.last_name} last_name_valid={this.state.last_name_valid} />
                 </div>
                 
             </div>
