@@ -1,4 +1,5 @@
 import React from 'react';
+import { Instructions_Para } from './instructions_para';
 import { Submit_Button } from './submit_button';
 import { Bio_Para_One } from './bio_para_one';
 
@@ -223,6 +224,10 @@ export default class Bio_Form extends React.Component {
 
         return (
             <div>
+
+                <div className="inner_div">
+                    <Instructions_Para />
+                </div>
 
                 <div className="inner_div">
                     <label>First Name: </label>
