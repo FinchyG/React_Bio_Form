@@ -11,7 +11,6 @@ export default class Bio_Form extends React.Component {
         this.state = {
             first_name: "",
             first_name_valid: "false",
-            show_bio_para: "false"
         }
 
         this.process_data = this.process_data.bind(this);
@@ -37,9 +36,11 @@ export default class Bio_Form extends React.Component {
         } else {
             document.getElementById("FName_warn").style.visibility = "hidden";
             first_name_valid = "true";
-            this.setState((first_name_valid) => ({first_name_valid: first_name_valid}));
+            this.setState((first_name_valid) => ({first_name_valid: "true"}));
             const caps_first_letter = user_input_first_name.substring(0,1).toUpperCase();
             const rest_of_name = user_input_first_name.substring(1).toLowerCase();
+
+            console.log(first_name_valid);
             
             this.setState((first_name) => ({first_name: caps_first_letter + rest_of_name}));
         }
@@ -61,7 +62,7 @@ export default class Bio_Form extends React.Component {
                 </div>
 
                 <div  className="inner_div" id="para_div">
-                    <Bio_Para first_name={this.state.first_name} show_bio_para={this.state.show_bio_para} />
+                    <Bio_Para first_name={this.state.first_name} first_name_valid={this.state.first_name_valid} />
                 </div>
                 
             </div>
