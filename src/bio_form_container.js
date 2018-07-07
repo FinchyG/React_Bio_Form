@@ -1,6 +1,6 @@
 import React from 'react';
 import { Submit_Button } from './submit_button';
-import { Bio_Para } from './bio_para'; 
+import { Bio_Para_One } from './bio_para_one';
 
 export default class Bio_Form extends React.Component {
     
@@ -14,13 +14,16 @@ export default class Bio_Form extends React.Component {
             last_name: "",
             last_name_valid: false,
             gender_prefix: "",
-            gender_prefix_valid: false
+            gender_prefix_valid: false,
+            age: "",
+            age_valid: false
         }
 
         this.process_data = this.process_data.bind(this);
         this.get_first_name = this.get_first_name.bind(this);
         this.get_last_name = this.get_last_name.bind(this);
         this.get_gender_prefix = this.get_gender_prefix.bind(this);
+        this.get_age = this.get_age.bind(this);
 
     }
 
@@ -29,6 +32,7 @@ export default class Bio_Form extends React.Component {
         this.get_first_name();
         this.get_last_name();
         this.get_gender_prefix();
+        this.get_age();
 
     }
 
@@ -97,7 +101,27 @@ export default class Bio_Form extends React.Component {
             document.getElementById("gender_warn").style.visibility = "hidden";
             this.setState((gender_prefix_valid) => ({gender_prefix_valid: true}));
 
+        }
     }
+
+    get_age() {
+
+        const age = document.getElementById("age").value;
+        const age_num = parseInt(age);
+
+        if((age_num === "") || (age_num <= 0) || (age_num >= 120) || (isNaN(age_num))) {
+
+            document.getElementById("age_warn").style.visibility = "visible";
+            this.setState((age_valid) => ({age_valid: false}));
+        
+        } else {
+
+            document.getElementById("age_warn").style.visibility = "hidden";
+            this.setState((age_valid) => ({age_valid: true}));
+            this.setState((age) => ({age: age_num}));
+
+        }
+
     }
 
     render() {
@@ -130,14 +154,21 @@ export default class Bio_Form extends React.Component {
                     <span class="warning" id="gender_warn">*Select your gender*</span>
                 </div>
 
+                <div className="inner_div">
+                    <label>Age: </label>
+                    <input type="text" id="age" size="5"/>
+                    <span className="warning" id="age_warn">*Enter your age in years with a number*</span>
+                </div>
+
                 <div>
                 <Submit_Button onClick={this.process_data} />
                 </div>
 
                 <div  className="inner_div" id="para_div">
-                    <Bio_Para first_name={this.state.first_name} first_name_valid={this.state.first_name_valid} 
+                    <Bio_Para_One first_name={this.state.first_name} first_name_valid={this.state.first_name_valid} 
                               last_name={this.state.last_name} last_name_valid={this.state.last_name_valid} 
-                              gender_prefix={this.state.gender_prefix} gender_prefix_valid={this.state.gender_prefix_valid} />
+                              gender_prefix={this.state.gender_prefix} gender_prefix_valid={this.state.gender_prefix_valid}
+                              age={this.state.age} age_valid={this.state.age_valid} />
                 </div>
                 
             </div>
